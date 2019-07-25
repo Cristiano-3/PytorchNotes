@@ -1,6 +1,11 @@
 # coding:utf-8
 import numpy as np 
 
+'''
+三层网络 1000-100-10
+y_pred = relu(x*w1)*w2
+loss = square(y_pred - y).sum()
+'''
 N, D_in, H, D_out = 64, 1000, 100, 10
 
 x = np.random.randn(N, D_in)
@@ -20,7 +25,9 @@ for t in range(500):
     loss = np.square(y_pred - y).sum()
     print(t, loss)
 
-    # backward
+    # backward, 
+    # 连式法则求导 grad_w1 和 grad_w2, 
+    # 求 grad_w2 时注意 relu 的地方
     grad_y_pred = 2.0 * (y_pred - y)
     grad_w2 = h_relu.T.dot(grad_y_pred)
     grad_h_relu = grad_y_pred.dot(w2.T)
