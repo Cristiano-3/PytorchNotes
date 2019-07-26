@@ -74,6 +74,8 @@ for t in range(500):
 
     # 手动更新权值参数(应用梯度降方法)
     # 为避免更新权值时构建计算图, 使用 torch.no_grad()
+    # 自动微分有赖于计算图, 若更新权值的部分加入计算图并不会被自动微分时用到
+    # 所以就用 torch.no_grad()
     with torch.no_grad():
 
         w1 -= learning_rate * w1.grad
